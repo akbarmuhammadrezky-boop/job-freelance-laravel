@@ -26,7 +26,7 @@
                     </div>
                     <h4 class="mt-3">Pekerjaan Desain Grafis</h4>
                     <p class="card-desc">Membuat visual untuk media cetak dan digital.</p>
-                    <div class="btn btn-category btn-graphic-design">Lihat Detail</div>
+                    <div class="btn btn-category btn-graphic-design" src="detail-pekerjaan-design-grafis.php">Lihat Detail</div>
                 </div>
             </a>
         </div>

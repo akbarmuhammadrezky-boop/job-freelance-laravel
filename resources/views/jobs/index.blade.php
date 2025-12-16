@@ -4,11 +4,13 @@
 <div class="container py-5">
     <h2 class="text-center mb-5">Kategori Pekerjaan</h2>
 
-    {{-- Kita gunakan Bootstrap Grid (row) dengan gutter (g-4) untuk spasi --}}
+    {{-- Grid Layout --}}
     <div class="row g-4">
 
+        {{-- 1. Entry Level --}}
         <div class="col-lg-3 col-md-6">
-            <a href="{{ route('jobs.entry-level') }}" class="category-card-link">
+            {{-- PERBAIKAN: Menggunakan route dinamis --}}
+            <a href="{{ route('jobs.category', 'entry-level') }}" class="category-card-link">
                 <div class="category-card text-center p-4">
                     <div class="card-icon icon-entry">
                         <i class="fa-solid fa-keyboard"></i>
@@ -22,8 +24,9 @@
             </a>
         </div>
 
+        {{-- 2. Micro Jobs --}}
         <div class="col-lg-3 col-md-6">
-            <a href="{{ route('jobs.micro') }}" class="category-card-link">
+            <a href="{{ route('jobs.category', 'micro') }}" class="category-card-link">
                 <div class="category-card text-center p-4">
                     <div class="card-icon icon-micro">
                         <i class="fa-solid fa-laptop-code"></i>
@@ -37,8 +40,9 @@
             </a>
         </div>
 
+        {{-- 3. Virtual Jobs --}}
         <div class="col-lg-3 col-md-6">
-            <a href="{{ route('jobs.virtual') }}" class="category-card-link">
+            <a href="{{ route('jobs.category', 'virtual') }}" class="category-card-link">
                 <div class="category-card text-center p-4">
                     <div class="card-icon icon-virtual">
                         <i class="fa-solid fa-headset"></i>
@@ -52,8 +56,9 @@
             </a>
         </div>
 
+        {{-- 4. Writing Jobs --}}
         <div class="col-lg-3 col-md-6">
-            <a href="{{ route('jobs.writing') }}" class="category-card-link">
+            <a href="{{ route('jobs.category', 'writing') }}" class="category-card-link">
                 <div class="category-card text-center p-4">
                     <div class="card-icon icon-writing">
                         <i class="fa-solid fa-pencil-alt"></i>
@@ -67,8 +72,9 @@
             </a>
         </div>
 
+        {{-- 5. Testing Jobs --}}
         <div class="col-lg-3 col-md-6">
-            <a href="{{ route('jobs.testing') }}" class="category-card-link">
+            <a href="{{ route('jobs.category', 'testing') }}" class="category-card-link">
                 <div class="category-card text-center p-4">
                     <div class="card-icon icon-testing">
                         <i class="fa-solid fa-check-square"></i>
@@ -82,8 +88,9 @@
             </a>
         </div>
 
+        {{-- 6. Designing Jobs --}}
         <div class="col-lg-3 col-md-6">
-            <a href="{{ route('jobs.designing') }}" class="category-card-link">
+            <a href="{{ route('jobs.category', 'designing') }}" class="category-card-link">
                 <div class="category-card text-center p-4">
                     <div class="card-icon icon-designing">
                         <i class="fa-solid fa-palette"></i>
@@ -97,8 +104,9 @@
             </a>
         </div>
 
+        {{-- 7. Marketing Jobs --}}
         <div class="col-lg-3 col-md-6">
-            <a href="{{ route('jobs.marketing') }}" class="category-card-link">
+            <a href="{{ route('jobs.category', 'marketing') }}" class="category-card-link">
                 <div class="category-card text-center p-4">
                     <div class="card-icon icon-marketing">
                         <i class="fa-solid fa-bullhorn"></i>
@@ -112,8 +120,9 @@
             </a>
         </div>
 
+        {{-- 8. Managerial Jobs --}}
         <div class="col-lg-3 col-md-6">
-            <a href="{{ route('jobs.managerial') }}" class="category-card-link">
+            <a href="{{ route('jobs.category', 'managerial') }}" class="category-card-link">
                 <div class="category-card text-center p-4">
                     <div class="card-icon icon-managerial">
                         <i class="fa-solid fa-briefcase"></i>
@@ -127,8 +136,9 @@
             </a>
         </div>
 
+        {{-- 9. Developer Jobs --}}
         <div class="col-lg-3 col-md-6">
-            <a href="{{ route('jobs.developer') }}" class="category-card-link">
+            <a href="{{ route('jobs.category', 'developer') }}" class="category-card-link">
                 <div class="category-card text-center p-4">
                     <div class="card-icon icon-developer">
                         <i class="fa-solid fa-code"></i>
@@ -142,8 +152,9 @@
             </a>
         </div>
 
+        {{-- 10. Finance Jobs --}}
         <div class="col-lg-3 col-md-6">
-            <a href="{{ route('jobs.finance') }}" class="category-card-link">
+            <a href="{{ route('jobs.category', 'finance') }}" class="category-card-link">
                 <div class="category-card text-center p-4">
                     <div class="card-icon icon-finance">
                         <i class="fa-solid fa-chart-line"></i>
@@ -157,8 +168,9 @@
             </a>
         </div>
 
+        {{-- 11. Coaching Jobs --}}
         <div class="col-lg-3 col-md-6">
-            <a href="{{ route('jobs.coaching') }}" class="category-card-link">
+            <a href="{{ route('jobs.category', 'coaching') }}" class="category-card-link">
                 <div class="category-card text-center p-4">
                     <div class="card-icon icon-coaching">
                         <i class="fa-solid fa-users"></i>
@@ -172,14 +184,15 @@
             </a>
         </div>
 
+        {{-- 12. Other Jobs --}}
         <div class="col-lg-3 col-md-6">
-           <a href="{{ route('jobs.other') }}" class="category-card-link">
+            <a href="{{ route('jobs.category', 'other') }}" class="category-card-link">
                 <div class="category-card text-center p-4">
-                    <div class...="card-icon icon-other">
+                    <div class="card-icon icon-other">
                         <i class="fa-solid fa-grip"></i>
                     </div>
                     <h4 class="mt-3">Other Jobs</h4>
-                    <p class="card-desc">Pekerjaan Lain-Lain, Semua Pekerjaan, Menampilkan Kategori Pekerjaan</S> </p>
+                    <p class="card-desc">Pekerjaan Lain-Lain, Semua Pekerjaan, Menampilkan Kategori Pekerjaan</p>
                     <div class="card-info">3610 Lowongan</div>
                     <div class="card-info mb-3">Rp 30.000 - Rp 400.000 Per Tugas</div>
                     <div class="btn btn-category btn-other">Lihat Pekerjaan</div>

@@ -3,96 +3,78 @@
 @section('content')
 <div class="container py-5">
     
+    {{-- Tombol Kembali --}}
     <div class="mb-4">
         <a href="{{ route('jobs.index') }}" class="btn btn-outline-secondary">
             <i class="fa-solid fa-arrow-left"></i> Kembali ke Kategori
         </a>
     </div>
     
+    {{-- Header Halaman --}}
     <div class="text-center mb-5">
-        <h1 class="fw-bold">Pekerjaan Entry-Level Terbuka di Seluruh Dunia</h1>
-        <p class="lead text-muted">Keanggotaan, Pelatihan Gratis, & Penempatan Terjamin!</p>
+        {{-- Judul Dinamis: Mengambil nama kategori dari Controller (misal: Entry-level) --}}
+        <h1 class="fw-bold">Pekerjaan {{ ucfirst($category ?? 'Entry Level') }}</h1>
+        <p class="lead text-muted">Temukan peluang terbaru yang baru saja diposting.</p>
         <p class="col-md-8 mx-auto">
-            Sifat dari pekerjaan entry-level adalah pekerjaan yang tidak memerlukan banyak pengalaman. Posisi ini biasanya digunakan untuk mendapatkan pengalaman di bidang atau industri yang diinginkan.
+            Daftar pekerjaan di bawah ini diambil langsung dari database berdasarkan kategori yang Anda pilih.
         </p>
     </div>
 
-    <h3 class="text-center mb-4">Jelajahi Pekerjaan Entry Level</h3>
-
-    {{-- Kita gunakan col-lg-4 agar 3 kartu per baris --}}
+    {{-- LOGIKA LOOPING DATA DARI DATABASE --}}
     <div class="row g-4 justify-content-center">
 
-        <div class="col-lg-4 col-md-6">
-            <a href="#" class="category-card-link">
-                <div class="category-card text-center p-4">
-                    <div class="card-icon icon-game"> <i class="fa-solid fa-gamepad"></i>
-                    </div>
-                    <h4 class="mt-3">Pekerjaan Bermain Game</h4>
-                    <p class="card-desc">Mainkan game baru, temukan bug, dan berikan ulasan.</p>
-                    <div class="btn btn-category btn-game">Lihat Detail</div>
+        {{-- 1. CEK: Apakah database kosong untuk kategori ini? --}}
+        @if($jobs->isEmpty())
+            <div class="col-md-8 text-center">
+                <div class="alert alert-info py-5 shadow-sm">
+                    <i class="fa-solid fa-folder-open fa-3x mb-3 text-info"></i>
+                    <h4>Belum ada lowongan di kategori ini.</h4>
+                    <p>Jadilah yang pertama memposting pekerjaan di sini!</p>
+                    <a href="{{ route('jobs.create') }}" class="btn btn-primary mt-2">
+                        <i class="fa-solid fa-plus"></i> Posting Pekerjaan
+                    </a>
                 </div>
-            </a>
-        </div>
+            </div>
 
-        <div class="col-lg-4 col-md-6">
-            <a href="#" class="category-card-link">
-                <div class="category-card text-center p-4">
-                    <div class="card-icon icon-video"> <i class="fa-solid fa-video"></i>
-                    </div>
-                    <h4 class="mt-3">Pekerjaan Menonton Video</h4>
-                    <p class="card-desc">Tonton video atau iklan untuk keperluan riset pasar.</p>
-                    <div class="btn btn-category btn-video">Lihat Detail</div>
-                </div>
-            </a>
-        </div>
+        {{-- 2. JIKA ADA DATA: Lakukan Looping (@foreach) --}}
+        @else
+            @foreach($jobs as $job)
+            <div class="col-lg-4 col-md-6">
+                {{-- Link menuju halaman Detail (mengirim ID pekerjaan) --}}
+                <a href="{{ route('jobs.show', $job->id) }}" class="category-card-link text-decoration-none">
+                    
+                    <div class="category-card text-center p-4 h-100 d-flex flex-column shadow-sm">
+                        {{-- Ikon --}}
+                        <div class="card-icon mb-3" style="background-color: #eef2ff; color: #4338ca;"> 
+                            <i class="fa-solid fa-briefcase"></i>
+                        </div>
+                        
+                        {{-- Judul Pekerjaan (Dari Database) --}}
+                        <h4 class="mt-2 text-dark fw-bold">{{ $job->title }}</h4>
+                        
+                        {{-- Nama Perusahaan --}}
+                        <span class="badge bg-light text-dark mb-3 border">{{ $job->company }}</span>
 
-        <div class="col-lg-4 col-md-6">
-            <a href="#" class="category-card-link">
-                <div class="category-card text-center p-4">
-                    <div class="card-icon icon-email"> <i class="fa-solid fa-envelope-open-text"></i>
-                    </div>
-                    <h4 class="mt-3">Pekerjaan Membaca Email</h4>
-                    <p class="card-desc">Baca email promosi dan berikan tanggapan.</p>
-                    <div class="btn btn-category btn-email">Lihat Detail</div>
-                </div>
-            </a>
-        </div>
+                        {{-- Lokasi & Gaji --}}
+                        <div class="text-muted small mb-3">
+                            <p class="mb-1"><i class="fa-solid fa-location-dot me-1"></i> {{ $job->location }}</p>
+                            <p class="mb-0 text-success fw-bold"><i class="fa-solid fa-money-bill me-1"></i> {{ $job->salary ?? 'Nego' }}</p>
+                        </div>
 
-        <div class="col-lg-4 col-md-6">
-            <a href="#" class="category-card-link">
-                <div class="category-card text-center p-4">
-                    <div class="card-icon icon-captcha"> <i class="fa-solid fa-shield-halved"></i>
-                    </div>
-                    <h4 class="mt-3">Pekerjaan Menyelesaikan Captcha</h4>
-                    <p class="card-desc">Selesaikan tugas captcha untuk membantu sistem data.</p>
-                    <div class="btn btn-category btn-captcha">Lihat Detail</div>
-                </div>
-            </a>
-        </div>
+                        {{-- Deskripsi Singkat (Dibatasi 60 karakter) --}}
+                        <p class="card-desc text-secondary flex-grow-1">
+                            {{ Str::limit($job->description, 80) }}
+                        </p>
 
-        <div class="col-lg-4 col-md-6">
-            <a href="#" class="category-card-link">
-                <div class="category-card text-center p-4">
-                    <div class="card-icon icon-copy"> <i class="fa-solid fa-copy"></i>
+                        {{-- Tombol Detail --}}
+                        <div class="mt-3">
+                            <button class="btn btn-outline-primary w-100 rounded-pill">Lihat Detail</button>
+                        </div>
                     </div>
-                    <h4 class="mt-3">Pekerjaan Salin Tempel</h4>
-                    <p class="card-desc">Pindahkan data dari satu format ke format lain.</p>
-                    <div class="btn btn-category btn-copy">Lihat Detail</div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-lg-4 col-md-6">
-            <a href="#" class="category-card-link">
-                <div class="category-card text-center p-4">
-                    <div class="card-icon icon-ad"> <i class="fa-solid fa-ad"></i>
-                    </div>
-                    <h4 class="mt-3">Pekerjaan Periklanan</h4>
-                    <p class="card-desc">Klik iklan atau posting materi promosi sederhana.</p>
-                    <div class="btn btn-category btn-ad">Lihat Detail</div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
+            @endforeach
+        @endif
 
     </div>
 </div>
